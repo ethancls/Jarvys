@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react';
 export default function Navigation() {
   const { data: session } = useSession();
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const {theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
@@ -33,6 +33,7 @@ export default function Navigation() {
   // Attendre que le composant soit monté pour éviter les problèmes d'hydratation
   useEffect(() => {
     setMounted(true);
+    //console.log('Theme mounted:', theme);
   }, []);
 
   const logout = async () => {
@@ -56,7 +57,7 @@ export default function Navigation() {
           <Link href={session ? "/dashboard" : "/"} className="flex items-center hover:opacity-80 hover:cursor-pointer">
             {theme === 'dark' ? (
               <Image
-                src="/icon-dark.svg"
+                src="/images/icon-dark.svg"
                 alt="Logo Jarvys"
                 width={60}
                 height={60}
@@ -65,7 +66,7 @@ export default function Navigation() {
               />
             ) : (
               <Image
-                src="/icon-light.svg"
+                src="/images/icon-light.svg"
                 alt="Logo Jarvys"
                 width={60}
                 height={60}

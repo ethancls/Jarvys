@@ -1,5 +1,4 @@
 'use client';
-// Layout principal de l'application
 import "./globals.css";
 import { ThemeProvider } from 'next-themes';
 import GlobalStyles from './styles';
@@ -24,17 +23,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <title>Jarvys</title>
         <meta name="description" content="Plateforme d&apos;exercices Python pour étudiants" />
-        <link rel="icon" href="/icon-light.svg" media="(prefers-color-scheme: light)" type="image/svg+xml" />
-        <link rel="icon" href="/icon-dark.svg" media="(prefers-color-scheme: dark)" type="image/svg+xml" />
+        <link rel="icon" href="/images/icon-light.svg" media="(prefers-color-scheme: light)" type="image/svg+xml" />
+        <link rel="icon" href="/images/icon-dark.svg" media="(prefers-color-scheme: dark)" type="image/svg+xml" />
       </head>
       <body className="font-sans text-black antialiased overflow-hidden bg-white dark:bg-black dark:text-white">
         <SessionProvider>
           <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
             <GlobalStyles />
             <div className="flex flex-col h-screen overflow-hidden">
               {/* Navigation/Header */}

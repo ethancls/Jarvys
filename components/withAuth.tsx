@@ -20,17 +20,17 @@ export default function withAuth<P extends AuthProps>(
     const loading = status === 'loading';
     
     useEffect(() => {
-      console.log('[withAuth] Status session:', status, 'admin requis:', requireAdmin);
+      //console.log('[withAuth] Status session:', status, 'admin requis:', requireAdmin);
       
       // Si l'utilisateur n'est pas connecté et que la session est chargée, rediriger vers la page de connexion
       if (status === 'unauthenticated') {
-        console.log('[withAuth] Non authentifié, redirection vers page de connexion');
+        //console.log('[withAuth] Non authentifié, redirection vers page de connexion');
         router.push('/');
       }
       
       // Si l'administrateur est requis mais que l'utilisateur n'est pas admin, rediriger vers le tableau de bord
       if (status === 'authenticated' && requireAdmin && !session?.user?.isAdmin) {
-        console.log('[withAuth] Accès admin refusé, redirection vers dashboard');
+        //console.log('[withAuth] Accès admin refusé, redirection vers dashboard');
         router.push('/dashboard');
       }
     }, [status, router, session, requireAdmin]);
@@ -48,7 +48,7 @@ export default function withAuth<P extends AuthProps>(
     }
 
     if (!session?.user) {
-      console.log('[withAuth] Session non disponible, affichage du spinner de chargement');
+      //console.log('[withAuth] Session non disponible, affichage du spinner de chargement');
       return (
         <div className="flex h-full items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-violet-500"></div>
@@ -65,7 +65,7 @@ export default function withAuth<P extends AuthProps>(
       isAdmin: session.user.isAdmin as boolean,
     } as Student;
 
-    console.log('[withAuth] Session chargée pour l\'utilisateur:', student.number);
+    //console.log('[withAuth] Session chargée pour l\'utilisateur:', student.number);
     return <Component {...(props as P)} student={student} logout={logout} />;
   };
 } 

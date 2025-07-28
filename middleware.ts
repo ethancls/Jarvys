@@ -7,8 +7,8 @@ const publicPaths = [
   '/register',
   '/api/register',
   '/favicon.ico',
-  '/icon-dark.svg',
-  '/icon-light.svg',
+  '/images/icon-dark.svg',
+  '/images/icon-light.svg',
 ];
 
 // Fonction pour vérifier si le chemin est public
@@ -41,7 +41,7 @@ export async function middleware(request: NextRequest) {
   
   // Si pas de token, rediriger vers la page de connexion
   if (!token) {
-    console.log(`[Middleware] Non authentifié, redirection depuis ${pathname} vers la page de connexion`);
+    //console.log(`[Middleware] Non authentifié, redirection depuis ${pathname} vers la page de connexion`);
     const url = new URL('/', request.url);
     // Ajouter le chemin d'origine comme callback URL pour rediriger après connexion
     url.searchParams.set('callbackUrl', request.url);
@@ -53,7 +53,7 @@ export async function middleware(request: NextRequest) {
     const isAdmin = token.isAdmin === true;
     
     if (!isAdmin) {
-      console.log(`[Middleware] Accès admin refusé pour ${token.number}, redirection vers le dashboard`);
+      //console.log(`[Middleware] Accès admin refusé pour ${token.number}, redirection vers le dashboard`);
       // Rediriger vers le tableau de bord si l'utilisateur n'est pas admin
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }

@@ -53,7 +53,7 @@ export default function Login() {
         console.error('Erreur de connexion:', result.error);
       } else {
         // Attendre un court instant pour être sûr que la session est mise à jour
-        console.log('Connexion réussie, redirection vers:', '/dashboard');
+        //console.log('Connexion réussie, redirection vers:', '/dashboard');
         setTimeout(() => {
           router.push('/dashboard');
         }, 300);
@@ -76,7 +76,7 @@ export default function Login() {
               {mounted && (
                 theme === 'dark' ? (
                   <Image
-                    src="/icon-dark.svg"
+                    src="/images/icon-dark.svg"
                     alt="Logo Jarvys"
                     width={60}
                     height={60}
@@ -85,7 +85,7 @@ export default function Login() {
                   />
                 ) : (
                   <Image
-                    src="/icon-light.svg"
+                    src="/images/icon-light.svg"
                     alt="Logo Jarvys"
                     width={60}
                     height={60}

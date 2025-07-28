@@ -169,7 +169,7 @@ export default function RegisterPage() {
             {mounted && (
               theme === 'dark' ? (
                 <Image
-                  src="/icon-dark.svg"
+                  src="/images/icon-dark.svg"
                   alt="Logo Jarvys"
                   width={60}
                   height={60}
@@ -178,7 +178,7 @@ export default function RegisterPage() {
                 />
               ) : (
                 <Image
-                  src="/icon-light.svg"
+                  src="/images/icon-light.svg"
                   alt="Logo Jarvys"
                   width={60}
                   height={60}
