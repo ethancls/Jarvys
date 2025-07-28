@@ -210,7 +210,7 @@ export default function RegisterPage() {
                 <p className="mt-2 flex items-center justify-center text-xs text-green-600/80 dark:text-green-400/80">
                 <Link
                   href="/"
-                  className="text-cyan-500 hover:text-cyan-600 transition-colors dark:hover:text-cyan-400 font-medium flex items-center"
+                  className="text-violet-500 hover:text-violet-600 transition-colors dark:hover:text-violet-400 font-medium flex items-center"
                 >
                   Se connecter
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -239,7 +239,7 @@ export default function RegisterPage() {
                     }
                     value={form[steps[step].name as keyof typeof form]}
                     onChange={handleChange}
-                    className="h-10 border-neutral-200 bg-white text-sm text-black shadow-sm transition-colors focus:border-cyan-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white pr-10"
+                    className="h-10 border-neutral-200 bg-white text-sm text-black shadow-sm transition-colors focus:border-violet-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white pr-10"
                     placeholder={steps[step].placeholder}
                     autoFocus
                   />
@@ -326,7 +326,7 @@ export default function RegisterPage() {
                     (isConfirmStep && !confirmValid)
                   }
                   className={clsx(
-                    "w-full h-10 transition-all bg-cyan-500 text-black cursor-pointer",
+                    "w-full h-10 transition-all bg-violet-500 text-black cursor-pointer",
                     (loading ||
                       isFieldEmpty ||
                       (isPwdStep && !isPwdValid) ||
@@ -345,7 +345,7 @@ export default function RegisterPage() {
 
               <div className="pt-2 text-center text-xs text-neutral-500 dark:text-neutral-400">
                 Déjà inscrit ?{' '}
-                <Link href="/" className="text-cyan-500 hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">
+                <Link href="/" className="text-violet-500 hover:text-violet-600 transition-colors dark:hover:text-violet-400">
                   Se connecter
                 </Link>
               </div>

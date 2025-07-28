@@ -42,7 +42,7 @@ export default function withAuth<P extends AuthProps>(
     if (loading) {
       return (
         <div className="flex h-full items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-cyan-500"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-violet-500"></div>
         </div>
       );
     }
@@ -51,7 +51,7 @@ export default function withAuth<P extends AuthProps>(
       console.log('[withAuth] Session non disponible, affichage du spinner de chargement');
       return (
         <div className="flex h-full items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-cyan-500"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-violet-500"></div>
         </div>
       );
     }

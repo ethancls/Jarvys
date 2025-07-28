@@ -81,11 +81,12 @@ export default function Navigation() {
           <nav className="hidden md:flex items-center space-x-1">
             <Link
               href="/dashboard"
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${pathname === '/dashboard'
-                  ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+              className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${pathname === '/dashboard'
+                  ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                   : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                 }`}
             >
+            <Terminal className="h-4 w-4 mr-1 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
               Tableau de bord
             </Link>
 
@@ -94,7 +95,7 @@ export default function Navigation() {
                 <button
                   onClick={() => setAdminMenuOpen(!adminMenuOpen)}
                   className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${pathname.startsWith('/admin')
-                      ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                      ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                       : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                     }`}
                 >
@@ -109,7 +110,7 @@ export default function Navigation() {
                       <Link
                         href="/admin/exercises"
                         className={`block px-4 py-2 text-sm ${pathname.startsWith('/admin/exercises')
-                            ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                            ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                             : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                           }`}
                       >
@@ -121,7 +122,7 @@ export default function Navigation() {
                       <Link
                         href="/admin/students"
                         className={`block px-4 py-2 text-sm ${pathname.startsWith('/admin/students')
-                            ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                            ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                             : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                           }`}
                       >
@@ -133,7 +134,7 @@ export default function Navigation() {
                       <Link
                         href="/admin/solutions"
                         className={`block px-4 py-2 text-sm ${pathname.startsWith('/admin/solutions')
-                            ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                            ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                             : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                           }`}
                       >
@@ -145,7 +146,7 @@ export default function Navigation() {
                       <Link
                         href="/admin/stats"
                         className={`block px-4 py-2 text-sm ${pathname.startsWith('/admin/stats')
-                            ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                            ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                             : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                           }`}
                       >
@@ -157,7 +158,7 @@ export default function Navigation() {
                       <Link
                         href="/admin/logs"
                         className={`block px-4 py-2 text-sm ${pathname.startsWith('/admin/logs')
-                            ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                            ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                             : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                           }`}
                       >
@@ -178,16 +179,16 @@ export default function Navigation() {
         <div className="flex items-center gap-2">
           {/* Nom de l'utilisateur */}
           {session && (
-            <div className="hidden sm:block">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-md bg-gradient-to-br from-cyan-500 to-blue-300 flex items-center justify-center text-white font-medium text-sm">
+            <Link href="/profil" className="hidden sm:block">
+              <div className="flex items-center gap-2 hover:opacity-80 cursor-pointer">
+                <div className="h-8 w-8 rounded-md bg-gradient-to-br from-violet-500 to-blue-300 flex items-center justify-center text-white font-medium text-sm">
                   {session.user.firstname?.charAt(0)}{session.user.lastname?.charAt(0)}
                 </div>
                 <span className="text-sm text-neutral-600 dark:text-neutral-300">
                   {session.user.firstname} {session.user.lastname}
                 </span>
               </div>
-            </div>
+            </Link>
           )}
 
           {/* Séparateur vertical */}
@@ -196,36 +197,51 @@ export default function Navigation() {
           )}
 
           {/* Bouton de changement de thème */}
-          {mounted && (
+            {mounted && (
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-md h-9 w-9"
+              className={`rounded-md h-9 w-9 transition-colors hover:cursor-pointer ${
+              theme === 'dark'
+                ? 'hover:bg-yellow-400/10 focus:ring-yellow-500'
+                : 'hover:bg-violet-100 focus:ring-violet-400'
+              }`}
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               title={theme === 'dark' ? 'Passer au thème clair' : 'Passer au thème sombre'}
+              aria-label="Changer de thème"
             >
-              {theme === 'dark' ? (
-                <Sun className="h-5 w-5 text-yellow-500 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
-              ) : (
-                <Moon className="h-5 w-5 text-cyan-400 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
-              )}
-              <span className="sr-only">Changer de thème</span>
+              <span className="relative flex items-center justify-center">
+              <Sun
+                className={`absolute transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'opacity-0 scale-75'
+                  : 'opacity-100 scale-100 text-yellow-500'
+                } h-5 w-5`}
+              />
+              <Moon
+                className={`absolute transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'opacity-100 scale-100 text-violet-400'
+                  : 'opacity-0 scale-75'
+                } h-5 w-5`}
+              />
+              </span>
             </Button>
-          )}
+            )}
 
-          {/* Bouton de déconnexion */}
-          {session && (
+            {/* Bouton de déconnexion amélioré */}
+            {session && (
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-md h-9 w-9"
+              className="rounded-md h-9 w-9 group relative transition-colors hover:cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/30 focus:ring-red-500"
               onClick={logout}
               title="Se déconnecter"
+              aria-label="Déconnexion"
             >
-              <LogOut className="h-5 w-5 text-neutral-700 dark:text-neutral-300 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
-              <span className="sr-only">Déconnexion</span>
+              <LogOut className="h-5 w-5 text-red-500 group-hover:text-red-600 transition-colors duration-150" />
             </Button>
-          )}
+            )}
 
           {/* Menu mobile */}
           <div className="md:hidden">
@@ -252,11 +268,12 @@ export default function Navigation() {
             <nav className="space-y-1">
               <Link
                 href="/dashboard"
-                className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname === '/dashboard'
-                    ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md ${pathname === '/dashboard'
+                    ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                     : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                   }`}
               >
+                <Terminal className="h-4 w-4 mr-2 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
                 Tableau de bord
               </Link>
 
@@ -266,7 +283,7 @@ export default function Navigation() {
                     className="block px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
                   >
                     <span className="flex items-center">
-                      <Shield className="h-4 w-4 mr-2 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
+                      <Shield className="h-4 w-4 mr-3 hover:opacity-80 cursor-pointer transition-opacity duration-150" />
                       Administration
                     </span>
                   </div>
@@ -275,7 +292,7 @@ export default function Navigation() {
                     <Link
                       href="/admin/exercises"
                       className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/exercises')
-                          ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                          ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                           : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                         }`}
                     >
@@ -287,7 +304,7 @@ export default function Navigation() {
                     <Link
                       href="/admin/students"
                       className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/students')
-                          ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                          ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                           : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                         }`}
                     >
@@ -299,7 +316,7 @@ export default function Navigation() {
                     <Link
                       href="/admin/solutions"
                       className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/solutions')
-                          ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                          ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                           : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                         }`}
                     >
@@ -311,7 +328,7 @@ export default function Navigation() {
                     <Link
                       href="/admin/stats"
                       className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/stats')
-                          ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                          ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                           : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                         }`}
                     >
@@ -323,7 +340,7 @@ export default function Navigation() {
                     <Link
                       href="/admin/logs"
                       className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname.startsWith('/admin/logs')
-                          ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+                          ? 'bg-violet-50 text-violet-500 dark:bg-violet-900/30 dark:text-violet-300'
                           : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
                         }`}
                     >
@@ -338,14 +355,14 @@ export default function Navigation() {
 
               {/* User info mobile */}
               <div className="mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-800">
-                <div className="flex items-center gap-2 px-3 py-2">
-                  <div className="h-8 w-8 rounded-md bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-medium text-sm">
-                    {session.user.firstname?.charAt(0)}{session.user.lastname?.charAt(0)}
-                  </div>
-                  <span className="text-sm text-neutral-600 dark:text-neutral-300">
-                    {session.user.firstname} {session.user.lastname}
-                  </span>
+              <Link href="/profil" className="flex items-center gap-2 px-3 py-2 hover:opacity-80 cursor-pointer">
+                <div className="h-8 w-8 rounded-md bg-gradient-to-br from-violet-500 to-blue-600 flex items-center justify-center text-white font-medium text-sm">
+                  {session.user.firstname?.charAt(0)}{session.user.lastname?.charAt(0)}
                 </div>
+                <span className="text-sm text-neutral-600 dark:text-neutral-300">
+                  {session.user.firstname} {session.user.lastname}
+                </span>
+              </Link>
               </div>
             </nav>
           </div>

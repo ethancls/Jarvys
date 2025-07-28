@@ -72,7 +72,7 @@ export default function Login() {
         <div className="relative w-full max-w-sm">
           {/* Logo flottant au-dessus */}
           <div className="absolute -top-20 left-1/2 flex -translate-x-1/2 items-center justify-center">
-            <div className="flex h-20 items-center justify-center gap-3 rounded-2xl px-6 shadow-lg">
+            <div className="flex h-20 items-center justify-center gap-3 rounded-2xl px-6">
               {mounted && (
                 theme === 'dark' ? (
                   <Image
@@ -116,7 +116,7 @@ export default function Login() {
                   id="student-number"
                   value={number}
                   onChange={(e) => setNumber(e.target.value)}
-                  className="h-10 border-neutral-200 bg-white text-sm text-white shadow-sm transition-colors focus:border-cyan-500 dark:border-neutral-800 dark:bg-neutral-950"
+                  className="h-10 border-neutral-200 bg-white text-sm dark:text-white shadow-sm transition-colors focus:border-violet-500 dark:border-neutral-800 dark:bg-neutral-950"
                   placeholder="12345678"
                 />
               </div>
@@ -131,7 +131,7 @@ export default function Login() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-10 border-neutral-200 bg-white text-sm text-white shadow-sm transition-colors focus:border-cyan-500 dark:border-neutral-800 dark:bg-neutral-950 pr-10"
+                    className="h-10 border-neutral-200 bg-white text-sm dark:text-white shadow-sm transition-colors focus:border-violet-500 dark:border-neutral-800 dark:bg-neutral-950 pr-10"
                     onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   />
                   <button
@@ -159,7 +159,7 @@ export default function Login() {
               <Button
                 onClick={handleLogin}
                 disabled={loading}
-                className="mt-2 w-full h-10 transition-all bg-cyan-500 text-black hover:opacity-90 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-2 w-full h-10 transition-all bg-violet-500 text-black hover:opacity-90 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Connexion...' : 'Se connecter'}
                 {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
@@ -170,7 +170,7 @@ export default function Login() {
                   Pas encore inscrit ?{' '}
                   <Link
                     href="/register"
-                    className="font-medium text-cyan-600 hover:text-cyan-500 transition-colors"
+                    className="font-medium  text-violet-500 hover:text-violet-500 transition-colors"
                   >
                     Créer un compte
                   </Link>
@@ -178,7 +178,7 @@ export default function Login() {
                 <div>
                   <a
                     href="mailto:support@jarvys.app?subject=Problème%20connexion%20Jarvys"
-                    className="inline-flex items-center gap-1 text-xs text-cyan-600 hover:text-cyan-500 transition-colors"
+                    className="inline-flex items-center gap-1 text-xs  text-violet-500 hover:text-violet-500 transition-colors"
                     title="Contacter le support Jarvys"
                   >
                     <MailQuestion className="h-4 w-4" />

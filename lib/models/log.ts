@@ -2,6 +2,7 @@
  * Représente une entrée dans les logs d'exécution
  */
 export interface Log {
+  studentNumber: string;
   studentName: string;
   exerciseTitle: string;
   id: string;

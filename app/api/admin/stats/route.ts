@@ -36,17 +36,17 @@ export async function GET(request: Request) {
           },
         },
       }),
-       prisma.solution.groupBy({
-         by: ['exerciseId'],
-         _count: {
-           id: true, // Compter les solutions par exercice
-         },
-         orderBy: {
-           _count: {
-             id: 'desc',
-           },
-         },
-       }),
+      prisma.solution.groupBy({
+        by: ['exerciseId'],
+        _count: {
+          id: true, // Compter les solutions par exercice
+        },
+        orderBy: {
+          _count: {
+            id: 'desc',
+          },
+        },
+      }),
     ]);
 
     // Récupérer les titres des exercices pour les groupes
@@ -58,17 +58,33 @@ export async function GET(request: Request) {
     const exerciseTitleMap = new Map(exercises.map(e => [e.id, e.title]));
 
     // Formater les résultats groupés
-    const formattedLogsPerExercise = logsPerExercise.map(item => ({
-      exerciseId: item.exerciseId,
-      title: exerciseTitleMap.get(item.exerciseId) || 'Exercice Inconnu',
-      count: item._count.id,
-    }));
+    const formattedLogsPerExercise = logsPerExercise.map(item => {
+      let count = 0;
+      if (item._count && typeof item._count === 'object' && typeof item._count.id === 'number') {
+        count = item._count.id;
+      } else if (typeof item._count === 'number') {
+        count = item._count;
+      }
+      return {
+        exerciseId: item.exerciseId,
+        title: exerciseTitleMap.get(item.exerciseId) || 'Exercice Inconnu',
+        count,
+      };
+    });
 
-    const formattedSolutionsPerExercise = solutionsPerExercise.map(item => ({
-       exerciseId: item.exerciseId,
-       title: exerciseTitleMap.get(item.exerciseId) || 'Exercice Inconnu',
-       count: item._count.id,
-     }));
+    const formattedSolutionsPerExercise = solutionsPerExercise.map(item => {
+      let count = 0;
+      if (item._count && typeof item._count === 'object' && typeof item._count.id === 'number') {
+        count = item._count.id;
+      } else if (typeof item._count === 'number') {
+        count = item._count;
+      }
+      return {
+        exerciseId: item.exerciseId,
+        title: exerciseTitleMap.get(item.exerciseId) || 'Exercice Inconnu',
+        count,
+      };
+    });
 
 
     const stats = {

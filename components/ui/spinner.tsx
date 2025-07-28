@@ -19,7 +19,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
   return (
     <div className="flex items-center justify-center w-full h-full p-4">
       <div
-        className={`animate-spin rounded-full border-solid border-cyan-500 border-t-transparent ${sizeClasses[size]} ${className}`}
+        className={`animate-spin rounded-full border-solid border-violet-500 border-t-transparent ${sizeClasses[size]} ${className}`}
         role="status"
         aria-label="Chargement"
       >

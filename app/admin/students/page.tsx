@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Trash, Pencil, UserPlus, Save, X, RefreshCw, ShieldCheck, CheckCircle, AlertTriangle, Key } from "lucide-react";
+import { Pencil, UserPlus, Save, X, RefreshCw, ShieldCheck, CheckCircle, AlertTriangle, Key, Trash2 } from "lucide-react";
 import { useRef } from "react";
 import clsx from "clsx";
 import { Spinner } from "@/components/ui/spinner";
@@ -30,7 +30,7 @@ function ConfirmModal({ open, onClose, onConfirm, title, description }: { open: 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 w-full max-w-sm">
         <div className="flex items-center gap-3 mb-4">
-          <AlertTriangle className="text-yellow-500" />
+          <Trash2 className="text-red-500" />
           <h3 className="font-bold text-lg">{title}</h3>
         </div>
         <p className="mb-6 text-sm text-neutral-600 dark:text-neutral-300">{description}</p>
@@ -53,7 +53,7 @@ function PasswordModal({ open, onClose, onSubmit, loading, error }: { open: bool
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 w-full max-w-sm">
         <div className="flex items-center gap-3 mb-4">
-          <Key className="text-cyan-500 dark:text-cyan-300" />
+          <Key className="text-violet-500 dark:text-violet-300" />
           <h3 className="font-bold text-lg">Modifier le mot de passe</h3>
         </div>
         <form onSubmit={e => { e.preventDefault(); onSubmit(password); }}>
@@ -62,7 +62,7 @@ function PasswordModal({ open, onClose, onSubmit, loading, error }: { open: bool
           {error && <div className="mb-2 text-sm text-red-600 dark:text-red-400">{error}</div>}
           <div className="flex justify-end gap-2">
             <Button type="button" size="sm" className="bg-neutral-200 hover:bg-neutral-300 text-neutral-700 cursor-pointer" onClick={onClose}>Annuler</Button>
-            <Button type="submit" size="sm" className="bg-cyan-500 hover:bg-cyan-700 text-white cursor-pointer" disabled={loading}>Valider</Button>
+            <Button type="submit" size="sm" className="bg-violet-500 hover:bg-violet-700 text-white cursor-pointer" disabled={loading}>Valider</Button>
           </div>
         </form>
       </div>
@@ -172,17 +172,17 @@ export default function AdminStudents() {
 
   // --- UI ---
   return (
-    <div className="container mx-auto px-2 sm:px-4 py-8 min-h-screen">
+    <div className="container mx-auto px-2 sm:px-4 py-8 min-h-screen overflow-x-hidden">
       <div className="mb-6 flex flex-wrap gap-2 border-b border-neutral-200 dark:border-neutral-800">
-        <button className={clsx("px-4 py-2 font-medium transition-colors", tab === "students" ? "border-b-2 border-cyan-500 text-cyan-500 dark:text-cyan-300 hover:cursor-pointer" : "text-neutral-500 dark:text-neutral-400 hover:text-cyan-500 dark:hover:text-cyan-300 hover:cursor-pointer")}
+        <button className={clsx("px-4 py-2 font-medium transition-colors", tab === "students" ? "border-b-2 border-violet-500 text-violet-500 dark:text-violet-300 hover:cursor-pointer" : "text-neutral-500 dark:text-neutral-400 hover:text-violet-500 dark:hover:text-violet-300 hover:cursor-pointer")}
           onClick={() => setTab("students")}>Utilisateurs</button>
-        <button className={clsx("px-4 py-2 font-medium transition-colors", tab === "allowed" ? "border-b-2 border-cyan-500 text-cyan-500 dark:text-cyan-300 hover:cursor-pointer" : "text-neutral-500 dark:text-neutral-400 hover:text-cyan-500 dark:hover:text-cyan-300 hover:cursor-pointer")}
+        <button className={clsx("px-4 py-2 font-medium transition-colors", tab === "allowed" ? "border-b-2 border-violet-500 text-violet-500 dark:text-violet-300 hover:cursor-pointer" : "text-neutral-500 dark:text-neutral-400 hover:text-violet-500 dark:hover:text-violet-300 hover:cursor-pointer")}
           onClick={() => setTab("allowed")}>Numéros autorisés</button>
       </div>
 
       {/* Success/Error */}
-      {success && (<div className="mb-6 rounded-lg border border-green-200 bg-green-50 dark:bg-green-900/20 p-4 text-green-700 dark:text-green-300 flex items-center gap-2"><CheckCircle className="h-5 w-5" /> <span>{success}</span></div>)}
-      {error && (<div className="mb-6 rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/20 p-4 text-red-700 dark:text-red-300 flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> <span>{error}</span></div>)}
+      {success && (<div className="mb-6 rounded-lg border border-none bg-green-50 dark:bg-green-900/20 p-4 text-green-700 dark:text-green-300 flex items-center gap-2"><CheckCircle className="h-5 w-5" /> <span>{success}</span></div>)}
+      {error && (<div className="mb-6 rounded-lg border border-none bg-red-50 dark:bg-red-900/20 p-4 text-red-700 dark:text-red-300 flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> <span>{error}</span></div>)}
 
       <div className="w-full">
         {/* Onglet Utilisateurs */}
@@ -190,18 +190,18 @@ export default function AdminStudents() {
           <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 md:p-6 shadow-lg bg-white dark:bg-neutral-950">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <div className="flex-1 flex items-center gap-2">
-                <h2 className="text-xl font-bold text-cyan-500 dark:text-cyan-300 mr-4">Liste des utilisateurs</h2>
+                <h2 className="text-xl font-bold text-violet-500 dark:text-violet-300 mr-4">Liste des utilisateurs</h2>
                 <Input
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Rechercher..."
-                  className="h-9 w-48 border-cyan-300 focus:border-cyan-500 focus:ring-cyan-500 text-sm"
+                  className="h-9 w-48 border-violet-300 focus:border-violet-500 focus:ring-violet-500 text-sm"
                 />
               </div>
               <Button
                 onClick={() => setShowAddUser((v) => !v)}
-                className="w-full sm:w-auto bg-cyan-500 hover:bg-cyan-700 hover:cursor-pointer text-white font-semibold"
+                className="w-full sm:w-auto bg-violet-500 hover:bg-violet-700 hover:cursor-pointer text-white font-semibold"
               >
                 {showAddUser ? "Annuler" : "Ajouter un utilisateur"}
               </Button>
@@ -226,11 +226,11 @@ export default function AdminStudents() {
                     <Input id="password" type="password" value={newStudent.password} onChange={e => setNewStudent({ ...newStudent, password: e.target.value })} className="mt-1" required />
                   </div>
                   <div className="flex items-center col-span-2">
-                    <input id="isAdmin" type="checkbox" checked={newStudent.isAdmin} onChange={e => setNewStudent({ ...newStudent, isAdmin: e.target.checked })} className="h-4 w-4 rounded border-cyan-300 text-cyan-500 focus:ring-cyan-500" />
+                    <input id="isAdmin" type="checkbox" checked={newStudent.isAdmin} onChange={e => setNewStudent({ ...newStudent, isAdmin: e.target.checked })} className="h-4 w-4 rounded border-violet-300 text-violet-500 focus:ring-violet-500" />
                     <label htmlFor="isAdmin" className="ml-1 block text-sm font-medium text-neutral-700 dark:text-neutral-200">Administrateur</label>
                   </div>
                   <div className="col-span-2">
-                    <Button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-700 hover:cursor-pointer text-white">Ajouter</Button>
+                    <Button type="submit" className="w-full bg-violet-500 hover:bg-violet-700 hover:cursor-pointer text-white">Ajouter</Button>
                   </div>
                 </form>
               </div>
@@ -238,8 +238,8 @@ export default function AdminStudents() {
             {loading ? (
               <div className="flex justify-center items-center h-32"><Spinner/></div>
             ) : students.length === 0 ? (
-              <div className="rounded-lg border border-cyan-200 dark:border-cyan-800 p-8 bg-white/50 dark:bg-neutral-900/50 text-center">
-                <h3 className="mt-2 text-xl font-bold text-cyan-500 dark:text-cyan-300">Aucun utilisateur</h3>
+              <div className="rounded-lg border border-violet-200 dark:border-violet-800 p-8 bg-white/50 dark:bg-neutral-900/50 text-center">
+                <h3 className="mt-2 text-xl font-bold text-violet-500 dark:text-violet-300">Aucun utilisateur</h3>
                 <p className="mt-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">Ajoutez des utilisateurs en utilisant le bouton ci-dessus.</p>
               </div>
             ) : (
@@ -247,14 +247,14 @@ export default function AdminStudents() {
                 <table className="w-full text-sm">
                   <thead className="bg-neutral-100 dark:bg-neutral-900/40">
                     <tr>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Numéro</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Prénom</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Nom</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Mot de passe</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Créé le</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Modifié le</th>
-                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Rôle</th>
-                        <th className="px-4 py-3 text-right font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Actions</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Numéro</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Prénom</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Nom</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Mot de passe</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Créé le</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Modifié le</th>
+                        <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Rôle</th>
+                        <th className="px-4 py-3 text-right font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-neutral-100 dark:divide-neutral-900/40">
@@ -267,8 +267,8 @@ export default function AdminStudents() {
                         (s.lastname && s.lastname.toLowerCase().includes(q))
                       );
                     }).map((student) => (
-                      <tr key={student.id} className="bg-white dark:bg-neutral-950 hover:bg-neutral-50 dark:hover:bg-neutral-900/60 cursor-pointer hover:opacity-90 transition-opacity">
-                          <td className="whitespace-nowrap px-4 py-3 font-mono">{student.number}</td>
+                      <tr key={student.id} className="bg-white dark:bg-neutral-950 hover:bg-violet-50 dark:hover:bg-violet-900/30 cursor-pointer hover:opacity-90 transition-opacity">
+                          <td className="whitespace-nowrap px-4 py-3 font-semibold text-violet-500">#{student.number}</td>
                           <td className="whitespace-nowrap px-4 py-3">{editingStudent === student.id ? (
                             <Input value={editForm.firstname || ""} onChange={e => setEditForm({ ...editForm, firstname: e.target.value })} className="h-8 w-28" />
                           ) : (student.firstname || "-")}</td>
@@ -277,7 +277,7 @@ export default function AdminStudents() {
                           ) : (student.lastname || "-")}</td>
                           <td className="whitespace-nowrap px-4 py-3">
                             <div className="flex ml-8">
-                              <Button type="button" size="sm" className="bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 text-cyan-500 dark:text-cyan-300 cursor-pointer" onClick={() => setEditingPasswordId(student.id)}>
+                              <Button type="button" size="sm" className="bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 text-violet-500 dark:text-violet-300 cursor-pointer" onClick={() => setEditingPasswordId(student.id)}>
                                 <Key className="h-4 w-4 inline" />
                               </Button>
                             </div>
@@ -287,26 +287,26 @@ export default function AdminStudents() {
                           <td className="whitespace-nowrap px-4 py-3">
                           {editingStudent === student.id ? (
                             <label className="flex items-center gap-2 cursor-pointer">
-                              <input type="checkbox" checked={editForm.isAdmin || false} onChange={e => setEditForm({ ...editForm, isAdmin: e.target.checked })} className="h-4 w-4 rounded border-cyan-300 text-cyan-500 focus:ring-cyan-500" />
+                              <input type="checkbox" checked={editForm.isAdmin || false} onChange={e => setEditForm({ ...editForm, isAdmin: e.target.checked })} className="h-4 w-4 rounded border-violet-300 text-violet-500 focus:ring-violet-500" />
                               <span className="text-xs font-medium">Admin</span>
                             </label>
                           ) : student.isAdmin ? (
-                            <span className="rounded-full bg-fuchsia-600 dark:bg-fuchsia-700 px-3 py-1 text-xs font-bold text-white dark:text-white animate-pulse">Admin</span>
+                            <span className="rounded-full bg-yellow-400 dark:bg-yellow-500 px-3 py-1 text-xs font-bold text-white">Admin</span>
                           ) : (
-                            <span className="rounded-full bg-cyan-500 dark:bg-cyan-500 px-3 py-1 text-xs font-bold text-white dark:text-white animate-pulse">Étudiant</span>
+                            <span className="rounded-full bg-violet-500 dark:bg-violet-500 px-3 py-1 text-xs font-bold text-white">Étudiant</span>
                           )}
                         </td>
                         <td className="whitespace-nowrap px-4 py-3 text-right">
                           <div className="flex justify-end gap-2">
                             {editingStudent === student.id ? (
                               <>
-                                <Button variant="outline" size="sm" className="border-green-200 bg-white dark:bg-green-700 text-green-600 dark:text-green-200 hover:opacity-90 font-medium cursor-pointer" onClick={handleUpdate}><Save className="h-4 w-4" /></Button>
-                                <Button variant="outline" size="sm" className="border-neutral-200 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-200 hover:opacity-90 font-medium cursor-pointer" onClick={cancelEdit}><X className="h-4 w-4" /></Button>
+                                <Button variant="outline" size="sm" className="border-none bg-green-500 text-white hover:bg-green-700 font-medium cursor-pointer" onClick={handleUpdate}><Save className="h-4 w-4" /></Button>
+                                <Button variant="outline" size="sm" className="border-none bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-200 hover:opacity-90 font-medium cursor-pointer" onClick={cancelEdit}><X className="h-4 w-4" /></Button>
                               </>
                             ) : (
                               <>
-                                <Button variant="outline" size="sm" className="border-none bg-cyan-500 text-white hover:bg-cyan-700 font-medium cursor-pointer" onClick={() => startEdit(student)}><Pencil className="h-4 w-4" /></Button>
-                                <Button variant="outline" size="sm" className="border-none bg-red-500 text-white hover:bg-red-700 font-medium cursor-pointer" onClick={() => setDeleteId(student.id)}><Trash className="h-4 w-4" /></Button>
+                                <Button variant="outline" size="sm" className="border-none bg-violet-500 text-white hover:bg-violet-700 font-medium cursor-pointer" onClick={() => startEdit(student)}><Pencil className="h-4 w-4" /></Button>
+                                <Button variant="outline" size="sm" className="border-none bg-red-500 text-white hover:bg-red-700 font-medium cursor-pointer" onClick={() => setDeleteId(student.id)}><Trash2 className="h-4 w-4" /></Button>
                               </>
                             )}
                           </div>
@@ -324,10 +324,10 @@ export default function AdminStudents() {
         {tab === "allowed" && (
           <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 md:p-6 shadow-lg bg-white dark:bg-neutral-950">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <h2 className="text-xl font-bold text-cyan-500 dark:text-cyan-300 mr-4">Liste des numéros autorisés</h2>
+              <h2 className="text-xl font-bold text-violet-500 dark:text-violet-300 mr-4">Liste des numéros autorisés</h2>
               <Button
                 onClick={() => setShowAddUser((v) => !v)}
-                className="w-full sm:w-auto bg-cyan-500 hover:bg-cyan-700 hover:cursor-pointer text-white font-semibold"
+                className="w-full sm:w-auto bg-violet-500 hover:bg-violet-700 hover:cursor-pointer text-white font-semibold"
               >
                 {showAddUser ? "Annuler" : "Ajouter un numéro"}
               </Button>
@@ -344,16 +344,16 @@ export default function AdminStudents() {
                     <Input id="allowed-label" type="text" value={newAllowed.label} onChange={e => setNewAllowed({ ...newAllowed, label: e.target.value })} className="mt-1" />
                   </div>
                   <div className="col-span-2">
-                    <Button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-700 hover:cursor-pointer text-white">Ajouter</Button>
+                    <Button type="submit" className="w-full bg-violet-500 hover:bg-violet-700 hover:cursor-pointer text-white">Ajouter</Button>
                   </div>
                 </form>
               </div>
             )}
             {allowedLoading ? (
-              <div className="flex justify-center items-center h-32"><div className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-200 border-t-cyan-500"></div></div>
+              <div className="flex justify-center items-center h-32"><div className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-200 border-t-violet-500"></div></div>
             ) : allowed.length === 0 ? (
-              <div className="rounded-lg border border-cyan-200 dark:border-cyan-800 p-8 bg-white/50 dark:bg-neutral-900/50 text-center">
-                <h3 className="mt-2 text-xl font-bold text-cyan-500 dark:text-cyan-300">Aucun numéro autorisé</h3>
+              <div className="rounded-lg border border-violet-200 dark:border-violet-800 p-8 bg-white/50 dark:bg-neutral-900/50 text-center">
+                <h3 className="mt-2 text-xl font-bold text-violet-500 dark:text-violet-300">Aucun numéro autorisé</h3>
                 <p className="mt-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">Ajoutez des numéros en utilisant le bouton ci-dessus.</p>
               </div>
             ) : (
@@ -361,20 +361,20 @@ export default function AdminStudents() {
                 <table className="w-full text-sm">
                   <thead className="bg-neutral-100 dark:bg-neutral-900/40">
                     <tr>
-                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Numéro</th>
-                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Label</th>
-                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Ajouté le</th>
-                      <th className="px-4 py-3 text-right font-bold uppercase tracking-wider text-cyan-500 dark:text-cyan-300">Actions</th>
+                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Numéro</th>
+                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Label</th>
+                      <th className="px-4 py-3 text-left font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Ajouté le</th>
+                      <th className="px-4 py-3 text-right font-bold uppercase tracking-wider text-violet-500 dark:text-violet-300">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-neutral-100 dark:divide-neutral-900/40">
                     {allowed.map((item) => (
-                      <tr key={item.id} className="bg-white dark:bg-neutral-950 hover:bg-neutral-50 dark:hover:bg-neutral-900/60 cursor-pointer hover:opacity-90 transition-opacity">
+                      <tr key={item.id} className="bg-white dark:bg-neutral-950 hover:bg-violet-50 dark:hover:bg-violet-900/30 cursor-pointer hover:opacity-90 transition-opacity">
                         <td className="whitespace-nowrap px-4 py-3 font-mono">{item.number}</td>
                         <td className="whitespace-nowrap px-4 py-3">{item.label || "-"}</td>
                         <td className="whitespace-nowrap px-4 py-3">{new Date(item.createdAt).toLocaleDateString()}</td>
                         <td className="whitespace-nowrap px-4 py-3 text-right">
-                          <Button variant="outline" size="sm" className="border-red-200 bg-white dark:bg-red-700 text-red-500 dark:text-red-200 hover:opacity-90 font-medium cursor-pointer" onClick={() => setDeleteAllowedId(item.id)}><Trash className="h-4 w-4" /></Button>
+                          <Button variant="outline" size="sm" className="border-red-200 bg-white dark:bg-red-700 text-red-500 dark:text-red-200 hover:opacity-90 font-medium cursor-pointer" onClick={() => setDeleteAllowedId(item.id)}><Trash2 className="h-4 w-4" /></Button>
                         </td>
                       </tr>
                     ))}

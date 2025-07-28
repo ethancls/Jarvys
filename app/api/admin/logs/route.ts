@@ -31,9 +31,7 @@ export async function GET() {
       ...log,
       studentName: log.student ? `${log.student.firstname} ${log.student.lastname}` : 'Inconnu',
       exerciseTitle: log.exercise ? log.exercise.title : 'Inconnu',
-      // Exclure les objets student/exercise complets si non nécessaires côté client
-      // student: undefined,
-      // exercise: undefined,
+      studentNumber: log.student ? log.student.number : 'Inconnu',
     }));
 
 

@@ -54,25 +54,25 @@ export default function Dashboard() {
 
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Terminal className="h-7 w-7 text-cyan-500 dark:text-cyan-300" />
-            <h2 className="font-bold text-2xl text-cyan-500 dark:text-cyan-300 tracking-tight">Exercices disponibles</h2>
-            <span className="ml-3 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-xs font-semibold">{exercises.length} exercice{exercises.length > 1 ? 's' : ''}</span>
+            <Terminal className="h-7 w-7 text-violet-500 dark:text-violet-300" />
+            <h2 className="font-bold text-2xl text-violet-500 dark:text-violet-300 tracking-tight">Exercices disponibles</h2>
+            <span className="ml-3 px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold">{exercises.length} exercice{exercises.length > 1 ? 's' : ''}</span>
           </div>
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Rechercher..."
-            className="h-9 w-full sm:w-64 rounded-md border border-cyan-300 focus:border-cyan-500 focus:ring-cyan-500 px-3 text-sm bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200"
+            className="h-9 w-full sm:w-64 rounded-md border border-violet-300 focus:border-violet-500 focus:ring-violet-500 px-3 text-sm bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200"
           />
         </div>
 
         {exercises.length === 0 ? (
-          <div className="mt-8 rounded-lg border border-cyan-200 dark:border-cyan-800 bg-white dark:bg-neutral-900 p-8 text-center shadow-lg">
-            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-cyan-50 dark:bg-cyan-900/30">
-              <Terminal className="h-8 w-8 text-cyan-500 dark:text-cyan-300" />
+          <div className="mt-8 rounded-lg border border-violet-200 dark:border-violet-800 bg-white dark:bg-black p-8 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-violet-50 dark:bg-violet-900/30">
+              <Terminal className="h-8 w-8 text-violet-500 dark:text-violet-300" />
             </div>
-            <h3 className="text-lg font-bold text-cyan-500 dark:text-cyan-300">Aucun exercice disponible</h3>
+            <h3 className="text-lg font-bold text-violet-500 dark:text-violet-300">Aucun exercice disponible</h3>
             <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Revenez plus tard pour voir les nouveaux exercices.</p>
           </div>
         ) : (
@@ -87,21 +87,21 @@ export default function Dashboard() {
             }).map((exercise) => (
               <Link href={`/exercises/${exercise.id}`} key={exercise.id}>
                 <div
-                  className="group rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-lg transition-all cursor-pointer hover:bg-cyan-50 dark:hover:bg-cyan-900/30 hover:shadow-md min-h-[260px] max-h-[340px] flex flex-col justify-between"
+                  className="group rounded-xl border border-none bg-white dark:bg-neutral-950 p-6 shadow-lg transition-all cursor-pointer hover:bg-violet-50 dark:hover:bg-violet-900/30 hover:shadow-md min-h-[260px] max-h-[340px] flex flex-col justify-between"
                   style={{ maxWidth: '400px', margin: '0 auto', height: '280px' }}
                 >
                   <div>
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-md bg-cyan-50 dark:bg-cyan-900/20 group-hover:bg-cyan-100 dark:group-hover:bg-cyan-900/40 transition-colors">
-                      <Terminal className="h-6 w-6 text-cyan-500 dark:text-cyan-300" />
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-md bg-violet-50 dark:bg-violet-900/20 group-hover:bg-violet-100 dark:group-hover:bg-violet-900/40 transition-colors">
+                      <Terminal className="h-6 w-6 text-violet-500 dark:text-violet-300" />
                     </div>
-                    <h3 className="mb-2 text-base font-bold text-cyan-600 dark:text-cyan-300 truncate">{exercise.title}</h3>
+                    <h3 className="mb-2 text-base font-bold text-violet-500 dark:text-violet-300 truncate">{exercise.title}</h3>
                     <p className="mb-2 text-sm text-neutral-700 dark:text-neutral-300 min-h-[60px] max-h-[80px] overflow-hidden text-ellipsis whitespace-pre-line line-clamp-4 pr-2">
                       {exercise.description}
                     </p>
                   </div>
                   <div className="flex flex-col gap-1 mt-2">
                     <div className="flex justify-end">
-                      <span className="text-xs text-cyan-500 dark:text-cyan-300 font-mono">Voir l'exercice →</span>
+                      <span className="text-xs text-violet-500 dark:text-violet-300 font-semibold">Voir l'exercice →</span>
                     </div>
                   </div>
                 </div>

@@ -38,7 +38,7 @@ export async function GET(
       const userSolutions = await prisma.solution.findMany({
         where: {
           exerciseId: id,
-          userId: session.user.id
+          studentId: session.user.id // Correction ici
         },
         orderBy: {
           createdAt: 'desc'

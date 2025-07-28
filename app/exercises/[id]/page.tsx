@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { HelpCircle } from 'lucide-react';
 
 // Composant pour l'éditeur de code
 function CodeEditor({
@@ -47,16 +48,15 @@ function CodeEditor({
     // Assurer que le conteneur peut grandir
     <div className="border rounded-lg overflow-hidden flex flex-col h-full">
       {/* Barre d'onglets */}
-      <div className="bg-gray-100 dark:bg-gray-800 p-2 flex items-center justify-between flex-shrink-0">
+      <div className="bg-gray-100 dark:bg-neutral-950 p-2 flex items-center justify-between flex-shrink-0">
         <div className="flex space-x-2 overflow-x-auto">
           {files.map((file, index) => (
             <div
               key={index}
-              className={`flex items-center px-3 py-1 rounded cursor-pointer ${
-                activeFileIndex === index
-                  ? 'bg-white dark:bg-gray-700'
-                  : 'hover:bg-gray-200 dark:hover:bg-gray-600'
-              } ${file.isMain ? 'font-bold border-b-2 border-blue-500' : ''}`}
+              className={`flex items-center px-3 py-1 rounded cursor-pointer ${activeFileIndex === index
+                  ? 'bg-white dark:bg-neutral-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-neutral-600'
+                } ${file.isMain ? 'font-bold border-b-2 border-violet-500' : ''}`}
               onClick={() => setActiveFileIndex(index)}
             >
               <FileCode size={16} className="mr-1" />
@@ -74,7 +74,7 @@ function CodeEditor({
                       e.stopPropagation();
                       onSetMainFile(index);
                     }}
-                    className="text-xs px-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                    className="text-xs px-1 hover:cursor-pointer text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
                     title="Définir comme fichier principal"
                   >
                     <Terminal size={14} />
@@ -89,7 +89,7 @@ function CodeEditor({
                         setActiveFileIndex(0);
                       }
                     }}
-                    className="text-xs px-1 text-gray-500 hover:text-red-500"
+                    className="text-xs px-1 hover:cursor-pointer text-gray-500 hover:text-red-500"
                     title="Supprimer le fichier"
                   >
                     <Trash2 size={14} />
@@ -100,7 +100,7 @@ function CodeEditor({
           ))}
           <button
             onClick={onAddFile}
-            className="px-3 py-1 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 rounded flex items-center"
+            className="px-3 py-1 hover:cursor-pointer text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 rounded flex items-center"
             title="Ajouter un fichier"
           >
             <Plus size={16} />
@@ -109,7 +109,7 @@ function CodeEditor({
       </div>
       {/* Remplacement de textarea par TextareaAutosize */}
       <TextareaAutosize
-        className="w-full p-4 font-mono text-sm outline-none border-none resize-none dark:bg-gray-900 flex-grow" // Suppression de h-134, flex-grow permet de prendre l'espace
+        className="w-full p-4 font-mono text-sm outline-none border-none resize-none dark:bg-neutral-900 flex-grow" // Suppression de h-134, flex-grow permet de prendre l'espace
         value={files[activeFileIndex]?.content || ''} // Utilisation de ?. pour sécurité
         onChange={(e) => onFileChange(activeFileIndex, e.target.value)}
         spellCheck={false}
@@ -137,19 +137,18 @@ function TestResults({ results }: { results: AugmentedTestResult[] | null }) {
     <div className="mt-6 border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
       {/* En-tête résumé */}
       <div
-        className={`p-4 flex justify-between items-center cursor-pointer transition-colors ${
-          successCount === totalCount
-            ? 'bg-cyan-50 dark:bg-cyan-900/30 hover:bg-cyan-100 dark:hover:bg-cyan-900/40'
+        className={`p-4 flex justify-between items-center cursor-pointer transition-colors ${successCount === totalCount
+            ? 'bg-violet-50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/40'
             : 'bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40'
-        }`}
+          }`}
         onClick={() => setExpanded(!expanded)}
       >
         <div className="font-semibold flex items-center text-sm">
           {successCount === totalCount
-            ? <Check className="mr-2 text-cyan-500 dark:text-cyan-400" size={18} />
+            ? <Check className="mr-2 text-violet-500 dark:text-violet-400" size={18} />
             : <X className="mr-2 text-red-500 dark:text-red-400" size={18} />
           }
-          <span className={`${successCount === totalCount ? 'text-cyan-600 dark:text-cyan-300' : 'text-red-700 dark:text-red-300'}`}>
+          <span className={`${successCount === totalCount ? 'text-violet-600 dark:text-violet-300' : 'text-red-700 dark:text-red-300'}`}>
             Résultats : {successCount}/{totalCount} tests réussis
           </span>
         </div>
@@ -162,25 +161,24 @@ function TestResults({ results }: { results: AugmentedTestResult[] | null }) {
           {results.map((result, idx) => (
             <div
               key={idx}
-              className={`border rounded-lg overflow-hidden ${
-                result.success
-                  ? 'border-cyan-200 dark:border-cyan-800'
+              className={`border rounded-lg overflow-hidden ${result.success
+                  ? 'border-violet-200 dark:border-violet-800'
                   : 'border-red-300 dark:border-red-800'
-              }`}
+                }`}
             >
               {/* En-tête du test individuel */}
-              <div className={`px-3 py-2 flex items-center justify-between ${result.success ? 'bg-cyan-50 dark:bg-cyan-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+              <div className={`px-3 py-2 flex items-center justify-between ${result.success ? 'bg-violet-50 dark:bg-violet-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
                 <div className="font-medium text-xs flex items-center">
                   {result.success
-                    ? <Check className="mr-1.5 text-cyan-500 dark:text-cyan-400" size={14} />
+                    ? <Check className="mr-1.5 text-violet-500 dark:text-violet-400" size={14} />
                     : <X className="mr-1.5 text-red-500 dark:text-red-400" size={14} />
                   }
-                  <span className={`${result.success ? 'text-cyan-600 dark:text-cyan-300' : 'text-red-700 dark:text-red-300'}`}>
+                  <span className={`${result.success ? 'text-violet-600 dark:text-violet-300' : 'text-red-700 dark:text-red-300'}`}>
                     {result.description || `Test #${idx + 1}`}
                   </span>
                 </div>
                 {result.hidden && (
-                   <span className="text-xs font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 px-1.5 py-0.5 rounded-full">Caché</span>
+                  <span className="text-xs font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 px-1.5 py-0.5 rounded-full">Caché</span>
                 )}
               </div>
 
@@ -202,8 +200,8 @@ function TestResults({ results }: { results: AugmentedTestResult[] | null }) {
 
                 {/* Sortie Obtenue */}
                 <div>
-                  <div className={`font-medium mb-1 ${result.success ? 'text-cyan-600 dark:text-cyan-400' : 'text-red-600 dark:text-red-400'}`}>Sortie Obtenue :</div>
-                  <pre className={`${result.success ? 'bg-cyan-50 dark:bg-cyan-900/20' : 'bg-red-50 dark:bg-red-900/20'} p-2 rounded overflow-auto text-xs font-mono ${result.success ? 'text-cyan-800 dark:text-cyan-200' : 'text-red-800 dark:text-red-200'}`}>{result.actual_output || '(Aucune)'}</pre>
+                  <div className={`font-medium mb-1 ${result.success ? 'text-violet-600 dark:text-violet-400' : 'text-red-600 dark:text-red-400'}`}>Sortie Obtenue :</div>
+                  <pre className={`${result.success ? 'bg-violet-50 dark:bg-violet-900/20' : 'bg-red-50 dark:bg-red-900/20'} p-2 rounded overflow-auto text-xs font-mono ${result.success ? 'text-violet-800 dark:text-violet-200' : 'text-red-800 dark:text-red-200'}`}>{result.actual_output || '(Aucune)'}</pre>
                 </div>
 
                 {/* Erreur (si présente) */}
@@ -236,6 +234,7 @@ function ExerciseContent({ exercise, loading, error }: {
   const [saving, setSaving] = useState(false);
   const [showTestCases, setShowTestCases] = useState(false);
   const [activeTestCase, setActiveTestCase] = useState<number | null>(null);
+  const [helpOpen, setHelpOpen] = useState(false);
 
   // Charger la solution sauvegardée au chargement
   useEffect(() => {
@@ -373,11 +372,11 @@ function ExerciseContent({ exercise, loading, error }: {
       if (data.test_results && exercise?.testCases) {
         // Utiliser les testCases originaux complets pour le mapping hidden
         const resultsWithHiddenInfo: AugmentedTestResult[] = data.test_results.map((result: TestResult, index: number) => {
-           const originalIndex = startIndex + index; // Calculer l'index original par rapport à la liste complète
-           return {
-             ...result,
-             hidden: exercise.testCases?.[originalIndex]?.hidden ?? false,
-           };
+          const originalIndex = startIndex + index; // Calculer l'index original par rapport à la liste complète
+          return {
+            ...result,
+            hidden: exercise.testCases?.[originalIndex]?.hidden ?? false,
+          };
         });
         setTestResults(resultsWithHiddenInfo);
       } else {
@@ -399,6 +398,63 @@ function ExerciseContent({ exercise, loading, error }: {
     setActiveTestCase(prev => (prev === idx ? null : idx));
   };
 
+  function HelpModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+    if (!open) return null;
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="bg-white dark:bg-neutral-950 rounded-lg shadow-lg p-8 w-full max-w-lg relative">
+          <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 text-xl font-bold"><X className="h-6 w-6 hover:cursor-pointer" /></button>
+          <h2 className="text-xl font-bold text-violet-500 dark:text-violet-300 mb-4 flex items-center gap-2"><HelpCircle className="h-6 w-6" />Aide sur l'entrée/sortie</h2>
+          <div className="space-y-4 text-sm">
+            <div>
+              <p className="mb-2 font-semibold text-violet-500">Comment l'API envoie les entrées :</p>
+              <ul className="list-disc ml-5 mb-2 text-neutral-700 dark:text-neutral-300">
+                <li>Les entrées sont envoyées via <span className="font-mono">stdin</span> (input standard).</li>
+                <li>Pour chaque test, l'entrée est fournie sous forme de texte, chaque valeur sur une ligne.</li>
+                <li>Exemple d'entrée pour un tableau :<br />
+                  <pre className="bg-neutral-100 dark:bg-neutral-900/40 p-2 rounded mt-1 font-mono">5\n1 2 3 4 5</pre>
+                  <span className="text-xs text-neutral-500">(5 = taille du tableau, puis les éléments séparés par des espaces)</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="mb-2 font-semibold text-violet-500">Exemples de code pour lire l'entrée :</p>
+              <pre className="bg-neutral-100 dark:bg-neutral-900/40 p-2 rounded font-mono text-xs mb-2">
+                # Lire un entier <br />
+                n = int(input()) <br />
+                # Lire un tableau d'entiers <br />
+                arr = list(map(int, input().split())) <br />
+                # Lire plusieurs lignes <br />
+                lines = [input() for _ in range(n)] 
+              </pre>
+            </div>
+            <div>
+              <p className="mb-2 font-semibold text-violet-500">Comment renvoyer la sortie :</p>
+              <ul className="list-disc ml-5 mb-2 text-neutral-700 dark:text-neutral-300">
+                <li>Votre code doit <span className="font-mono">imprimer</span> la sortie attendue (via <span className="font-mono">print()</span>).</li>
+                <li>Pour un tableau, imprimez les éléments séparés par des espaces :</li>
+              </ul>
+              <pre className="bg-neutral-100 dark:bg-neutral-900/40 p-2 rounded font-mono text-xs mb-2">
+                # Afficher un entier <br />
+                print(n) <br />
+                # Afficher un tableau <br />
+                print(' '.join(map(str, arr)))
+              </pre>
+            </div>
+            <div>
+              <p className="mb-2 font-semibold text-violet-500">Remarques :</p>
+              <ul className="list-disc ml-5 text-neutral-700 dark:text-neutral-300">
+                <li>Ne pas ajouter de texte explicatif dans la sortie, uniquement la valeur ou le tableau attendu.</li>
+                <li>La comparaison se fait sur la sortie brute (strip).</li>
+                <li>Le code est exécuté avec un timeout de 10 secondes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return <Spinner />;
   }
@@ -416,80 +472,84 @@ function ExerciseContent({ exercise, loading, error }: {
   }
 
   return (
-    <div className="h-full min-h-screen bg-white dark:bg-neutral-950"> {/* Fond uni */}
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        {/* Header: Titre et retour */}
-        <div className="mb-6">
-          <Link href="/dashboard" className="mb-2 inline-flex items-center text-sm text-cyan-500 hover:text-cyan-600 font-medium">
-            <ArrowLeft className="mr-1 h-4 w-4" />
-            Retour au tableau de bord
-          </Link>
-          <h1 className="text-2xl font-bold text-cyan-500 dark:text-cyan-300">{exercise.title}</h1>
+    <div className="container mx-auto px-2 sm:px-4 py-8 min-h-screen">
+      <HelpModal open={helpOpen} onClose={() => setHelpOpen(false)} />
+      <div className="w-full">
+        {/* Header harmonisé */}
+        <div className="mb-8 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-2">
+            <Link href="/dashboard" className="inline-flex items-center text-sm text-violet-500 hover:text-violet-600 font-medium">
+              <ArrowLeft className="mr-1 h-4 w-4" />
+              Retour au tableau de bord
+            </Link>
+            <h1 className="text-2xl font-bold text-violet-500 dark:text-violet-300">{exercise.title}</h1>
+          </div>
+          <Button
+            type="button"
+            onClick={() => setHelpOpen(true)}
+            className="ml-auto bg-neutral-100 dark:bg-neutral-900/40 border hover:cursor-pointer border-neutral-200 dark:border-neutral-800 text-violet-500 dark:text-violet-300 hover:bg-violet-50 dark:hover:bg-violet-900/30 font-semibold rounded-lg px-4 py-2 flex items-center gap-2 shadow"
+          >
+            <HelpCircle className="h-5 w-5 mr-1" />
+            Aide
+          </Button>
         </div>
-
-        {/* Layout principal en 2 colonnes */}
-        {/* Modification: Remplacer items-start par items-stretch */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch"> 
-
-          {/* Colonne Gauche: Énoncé, Tests et Résultats */}
+        {/* Grid harmonisé */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          {/* Colonne Énoncé & Tests */}
           <div className="space-y-8">
-            {/* Carte Énoncé */}
-            <div className="rounded-2xl border border-cyan-100 dark:border-cyan-900 bg-white dark:bg-neutral-900 shadow-xl p-8 flex flex-col min-h-[480px]">
-              <h2 className="mb-4 text-lg font-bold text-cyan-600 dark:text-cyan-300">Énoncé</h2>
-              <p className="text-base text-gray-800 dark:text-gray-200 leading-relaxed mb-6">{exercise.description}</p>
+            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-lg p-8 flex flex-col min-h-[480px]">
+              <h2 className="mb-4 text-lg font-bold text-violet-500 dark:text-violet-300">Énoncé</h2>
+              <p className="text-base text-neutral-800 dark:text-neutral-200 leading-relaxed mb-6">{exercise.description}</p>
               <div className="space-y-4">
-                {/* Affichage des jeux de tests */}
                 {exercise.testCases && exercise.testCases.length > 0 ? (
                   <div>
-                    <h3 className="mb-2 text-sm font-bold text-cyan-600 dark:text-cyan-300">Jeux de tests</h3>
+                    <h3 className="mb-2 text-sm font-bold text-violet-500 dark:text-violet-300">Jeux de tests</h3>
                     <div className="space-y-2">
                       {exercise.testCases.map((testCase, idx) => (
-                        <div key={idx} className={`rounded-xl border p-3 shadow-sm transition-all ${activeTestCase === idx ? 'border-cyan-400 bg-cyan-50' : 'bg-cyan-50 border-cyan-100'}`}>
-                          <div className="flex cursor-pointer items-center justify-between hover:bg-cyan-100 rounded-md p-2" onClick={() => selectTestCase(idx)}>
-                            <h4 className="text-sm font-bold text-cyan-600">{testCase.description || `Test #${idx+1}`}</h4>
+                        <div key={idx} className={`rounded-lg border p-3 shadow-sm transition-all ${activeTestCase === idx ? 'border-violet-400 bg-violet-50 dark:bg-neutral-900/40' : 'bg-neutral-100 border-neutral-200 dark:bg-neutral-900/40 dark:border-neutral-800'}`}>
+                          <div className="flex cursor-pointer items-center justify-between hover:bg-violet-100 dark:hover:bg-violet-900/30 rounded-md p-2" onClick={() => selectTestCase(idx)}>
+                            <h4 className="text-sm font-bold text-violet-500">{testCase.description || `Test #${idx + 1}`}</h4>
                             <div className="flex items-center">
-                              <span className="mr-2 text-xs text-cyan-500">{activeTestCase === idx ? 'Cacher les détails' : 'Voir les détails'}</span>
+                              <span className="mr-2 text-xs text-violet-500">{activeTestCase === idx ? 'Cacher les détails' : 'Voir les détails'}</span>
                               {activeTestCase === idx ? (
-                                <ChevronUp className="h-4 w-4 text-cyan-500" />
+                                <ChevronUp className="h-4 w-4 text-violet-500" />
                               ) : (
-                                <ChevronDown className="h-4 w-4 text-cyan-500" />
+                                <ChevronDown className="h-4 w-4 text-violet-500" />
                               )}
                             </div>
                           </div>
                           {activeTestCase === idx && (
                             <div className="mt-3 space-y-3">
                               {testCase.hidden ? (
-                                <div className="bg-white border border-cyan-100 rounded-md p-4 text-center">
+                                <div className="bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-md p-4 text-center">
                                   <div className="flex flex-col items-center">
-                                    <div className="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center mb-2">
-                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                    <div className="w-12 h-12 rounded-full bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center mb-2">
+                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-violet-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                     </div>
-                                    <p className="text-sm font-medium text-cyan-600">Test masqué</p>
-                                    <p className="text-xs text-gray-500 mt-1">Exécutez votre code pour vérifier votre solution</p>
+                                    <p className="text-sm font-medium text-violet-500">Test masqué</p>
+                                    <p className="text-xs text-neutral-500 mt-1">Exécutez votre code pour vérifier votre solution</p>
                                   </div>
                                 </div>
                               ) : (
                                 <div className="space-y-3">
                                   <div>
-                                    <h5 className="mb-1 text-xs font-bold text-cyan-500">Entrée</h5>
-                                    <pre className="rounded-md bg-cyan-100 p-2 text-xs font-mono text-neutral-900 whitespace-pre-wrap break-words">{testCase.input || '(Aucune entrée)'}</pre>
+                                    <h5 className="mb-1 text-xs font-bold text-violet-500">Entrée</h5>
+                                    <pre className="rounded-md bg-neutral-100 dark:bg-neutral-900/40 p-2 text-xs font-mono text-neutral-900 dark:text-neutral-200 whitespace-pre-wrap break-words">{testCase.input || '(Aucune entrée)'}</pre>
                                   </div>
                                   <div>
-                                    <h5 className="mb-1 text-xs font-bold text-cyan-500">Sortie attendue</h5>
-                                    <pre className="rounded-md bg-cyan-100 p-2 text-xs font-mono text-neutral-900 whitespace-pre-wrap break-words">{testCase.expected_output}</pre>
+                                    <h5 className="mb-1 text-xs font-bold text-violet-500">Sortie attendue</h5>
+                                    <pre className="rounded-md bg-neutral-100 dark:bg-neutral-900/40 p-2 text-xs font-mono text-neutral-900 dark:text-neutral-200 whitespace-pre-wrap break-words">{testCase.expected_output}</pre>
                                   </div>
                                 </div>
                               )}
-                              {/* Modification: Appeler handleExecute directement avec l'index */} 
-                              <Button 
-                                onClick={() => handleExecute(idx)} // Appel direct
+                              <Button
+                                onClick={() => handleExecute(idx)}
                                 disabled={executing}
-                                variant="primaryGradient" 
-                                className="mt-2 w-full rounded-xl px-5 py-2 text-base font-semibold shadow border border-cyan-200 dark:border-cyan-700 bg-gradient-to-r from-cyan-400 to-cyan-600 dark:from-cyan-700 dark:to-cyan-900 hover:from-cyan-500 hover:to-cyan-700 dark:hover:from-cyan-800 dark:hover:to-cyan-950 text-white transition-all duration-150 flex items-center justify-center gap-2" // Ajout de justify-center
+                                variant="default"
+                                className="mt-2 w-full rounded-lg px-5 py-2 text-base font-semibold shadow border hover:cursor-pointer border-violet-200 dark:border-violet-800 bg-violet-500 dark:bg-violet-800 hover:bg-violet-700 dark:hover:bg-violet-900 text-white transition-all duration-150 flex items-center justify-center gap-2"
                               >
-                                {/* Afficher un spinner spécifique si ce cas est en cours d'exécution (nécessiterait un état plus fin) */} 
-                                {executing ? <Spinner size="xs" /> : <Play size={16} />}
-                                Tester ce cas
+                                <Play size={16} />
+                                <span>Tester ce cas</span>
                               </Button>
                             </div>
                           )}
@@ -500,71 +560,65 @@ function ExerciseContent({ exercise, loading, error }: {
                 ) : (
                   <>
                     <div>
-                      <h3 className="mb-2 text-sm font-bold text-cyan-600">Entrée</h3>
-                      <pre className="mt-1 rounded-md bg-cyan-100 p-3 text-sm font-mono text-neutral-900 whitespace-pre-wrap break-words">{exercise.input || 'Aucune entrée requise'}</pre>
+                      <h3 className="mb-2 text-sm font-bold  text-violet-500">Entrée</h3>
+                      <pre className="mt-1 rounded-md bg-violet-100 p-3 text-sm font-mono text-neutral-900 whitespace-pre-wrap break-words">{exercise.input || 'Aucune entrée requise'}</pre>
                     </div>
                     <div>
-                      <h3 className="mb-2 text-sm font-bold text-cyan-600">Sortie attendue</h3>
-                      <pre className="mt-1 rounded-md bg-cyan-100 p-3 text-sm font-mono text-neutral-900 whitespace-pre-wrap break-words">{exercise.output}</pre>
+                      <h3 className="mb-2 text-sm font-bold  text-violet-500">Sortie attendue</h3>
+                      <pre className="mt-1 rounded-md bg-violet-100 p-3 text-sm font-mono text-neutral-900 whitespace-pre-wrap break-words">{exercise.output}</pre>
                     </div>
                   </>
                 )}
               </div>
             </div>
-
-            {/* Carte Résultats */}
-            <div className="rounded-2xl border border-cyan-100 dark:border-cyan-900 bg-white dark:bg-neutral-900 shadow-xl">
+            {/* Carte Résultats harmonisée */}
+            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-lg">
               <div className="p-6">
-                 <h2 className="mb-4 text-lg font-semibold text-cyan-600 dark:text-cyan-300">Résultats de l'exécution</h2>
+                <h2 className="mb-4 text-lg font-semibold text-violet-500 dark:text-violet-300">Résultats de l'exécution</h2>
                 {!testResults && !executing && (
-                   <div className="flex flex-col items-center justify-center p-8 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg border border-dashed border-neutral-300 dark:border-neutral-700">
-                     <PlayCircle size={32} className="text-neutral-400 dark:text-neutral-600 mb-3" />
-                     <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Cliquez sur "Exécuter" pour voir les résultats.</p>
-                   </div>
+                  <div className="flex flex-col items-center justify-center p-8 bg-neutral-100 dark:bg-neutral-900/40 rounded-lg border border-dashed border-neutral-200 dark:border-neutral-800">
+                    <PlayCircle size={32} className="text-neutral-400 dark:text-neutral-600 mb-3" />
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Cliquez sur "Exécuter" pour voir les résultats.</p>
+                  </div>
                 )}
                 {executing && (
-                  <div className="flex flex-col items-center justify-center p-8 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg animate-pulse">
-                    <Spinner size='lg' className="mb-3 text-cyan-500" />
-                    <p className="text-base text-cyan-700 dark:text-cyan-300 font-semibold mb-1">Exécution en cours...</p>
+                  <div className="flex flex-col items-center justify-center p-8 bg-neutral-100 dark:bg-neutral-900/40 rounded-lg animate-pulse">
+                    <Spinner size='lg' className="mb-3 text-violet-500" />
+                    <p className="text-base text-violet-700 dark:text-violet-300 font-semibold mb-1">Exécution en cours...</p>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400">Veuillez patienter pendant que nous testons votre code</p>
                   </div>
                 )}
                 {testResults && <TestResults results={testResults} />}
               </div>
             </div>
-
-          </div> {/* Fin Colonne Gauche */}
-
-          {/* Colonne Droite: Éditeur de Code */}
-          {/* h-full sur la carte est maintenant important car items-stretch donne une hauteur à la cellule */}
+          </div>
+          {/* Colonne Éditeur harmonisée */}
           <div>
-            <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm overflow-hidden flex flex-col h-full">
+            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-lg overflow-hidden flex flex-col h-full">
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-center mb-4 flex-shrink-0">
-                  <h2 className="text-lg font-semibold text-cyan-600 dark:text-cyan-300">Votre Solution</h2>
-                  <div className="flex items-center gap-3"> {/* Ajout de items-center */}
+                  <h2 className="text-lg font-semibold text-violet-500 dark:text-violet-300">Votre Solution</h2>
+                  <div className="flex items-center gap-3">
                     <Button
                       onClick={handleSave}
                       disabled={saving}
                       variant="secondary"
-                      className="rounded-xl px-5 py-2 text-base font-semibold shadow border border-cyan-100 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950 hover:bg-cyan-100 dark:hover:bg-cyan-900 text-cyan-600 dark:text-cyan-200 transition-all duration-150 flex items-center gap-2"
+                      className="rounded-lg px-5 py-2 text-base font-semibold shadow hover:cursor-pointer border border-none bg-violet-50 dark:bg-neutral-900 hover:bg-violet-100 dark:hover:bg-violet-900 text-violet-500 dark:text-violet-200 transition-all duration-150 flex items-center gap-2"
                     >
-                      {saving ? <Spinner size="sm" className="mr-1" /> : <Save size={18} className="mr-1" />}
-                      Enregistrer
+                      {saving ? <Spinner size="sm" /> : <Save size={18} />}
+                      <span>Enregistrer</span>
                     </Button>
-                    {/* Modification: Appeler handleExecute sans argument */}
                     <Button
-                      onClick={() => handleExecute()} // Appel sans argument
+                      onClick={() => handleExecute()}
                       disabled={executing}
-                      variant="primaryGradient"
-                      className="rounded-xl px-5 py-2 text-base font-semibold shadow border border-cyan-200 dark:border-cyan-700 bg-gradient-to-r from-cyan-400 to-cyan-600 dark:from-cyan-700 dark:to-cyan-900 hover:from-cyan-500 hover:to-cyan-700 dark:hover:from-cyan-800 dark:hover:to-cyan-950 text-white transition-all duration-150 flex items-center gap-2"
+                      variant="default"
+                      className="rounded-lg px-5 py-2 text-base font-semibold shadow hover:cursor-pointer border border-none bg-violet-500 dark:bg-violet-800 hover:bg-violet-700 dark:hover:bg-violet-900 text-white transition-all duration-150 flex items-center gap-2"
                     >
-                      {executing ? <Spinner size="sm" className="mr-1" /> : <Play size={18} className="mr-1" />}
-                      Exécuter
+                      {executing ? <Spinner size="sm" /> : <Play size={18} />}
+                      <span>Exécuter</span>
                     </Button>
                   </div>
                 </div>
-                {/* flex-grow et min-h-0 permettent à CodeEditor de prendre l'espace restant */}
                 <div className="flex-grow min-h-0">
                   <CodeEditor
                     files={files}
@@ -577,12 +631,10 @@ function ExerciseContent({ exercise, loading, error }: {
                 </div>
               </div>
             </div>
-          </div> {/* Fin Colonne Droite */}
-
-        </div> {/* Fin Grid principal */}
-
-      </div> {/* Fin Container principal */}
-    </div> // Fin div root
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

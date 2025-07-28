@@ -23,13 +23,13 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       body,
     });
     const data = await res.json();
-    // Log dans la base
+    // Log dans la base : success = all_tests_passed si présent, sinon success général
     await prisma.log.create({
       data: {
         studentId,
         exerciseId,
         code,
-        success: data.success ?? null,
+        success: typeof data.all_tests_passed === 'boolean' ? data.all_tests_passed : (data.success ?? null),
         isAutoSave: false,
         timestamp: new Date(),
       },
