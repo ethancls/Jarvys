@@ -122,7 +122,7 @@ export default function AdminStatsPage() {
         </div>
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Statistiques par exercice */}
-          <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-md">
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-md overflow-x-auto">
             <div className="mb-6 flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-violet-500" />
               <h2 className="text-xl font-bold  text-violet-500 dark:text-violet-300">Par exercice</h2>
@@ -176,7 +176,7 @@ export default function AdminStatsPage() {
             )}
           </div>
           {/* Statistiques par étudiant */}
-          <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-md">
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-md overflow-x-auto">
             <div className="mb-6 flex items-center gap-2">
               <Users className="h-5 w-5 text-violet-500" />
               <h2 className="text-xl font-bold  text-violet-500 dark:text-violet-300">Par étudiant</h2>
