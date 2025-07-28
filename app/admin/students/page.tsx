@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Trash, Pencil, UserPlus, Save, X, RefreshCw, ShieldCheck, CheckCircle, AlertTriangle, Key } from "lucide-react";
 import { useRef } from "react";
 import clsx from "clsx";
+import { Spinner } from "@/components/ui/spinner";
 
 type Student = {
   id: string;
@@ -235,7 +236,7 @@ export default function AdminStudents() {
               </div>
             )}
             {loading ? (
-              <div className="flex justify-center items-center h-32"><div className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-200 border-t-cyan-500"></div></div>
+              <div className="flex justify-center items-center h-32"><Spinner/></div>
             ) : students.length === 0 ? (
               <div className="rounded-lg border border-cyan-200 dark:border-cyan-800 p-8 bg-white/50 dark:bg-neutral-900/50 text-center">
                 <h3 className="mt-2 text-xl font-bold text-cyan-500 dark:text-cyan-300">Aucun utilisateur</h3>

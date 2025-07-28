@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { CheckCircle, Eye, EyeOff, XCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Eye, EyeOff, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import clsx from 'clsx';
 
@@ -165,7 +165,7 @@ export default function RegisterPage() {
     <div className="flex h-full items-center justify-center px-4">
       <div className="relative w-full max-w-sm">
         <div className="absolute -top-20 left-1/2 flex -translate-x-1/2 items-center justify-center">
-          <div className="flex h-20 items-center justify-center gap-3 rounded-2xl px-6 shadow-lg">
+          <div className="flex h-20 items-center justify-center gap-3 rounded-2xl px-6">
             {mounted && (
               theme === 'dark' ? (
                 <Image
@@ -207,11 +207,15 @@ export default function RegisterPage() {
                 <CheckCircle className="h-6 w-6 text-green-500" />
               </div>
               <h3 className="text-sm font-medium text-green-600 dark:text-green-500">Inscription réussie</h3>
-              <p className="mt-1 text-xs text-green-600/80 dark:text-green-400/80">
-                <Link href="/" className="text-cyan-500 hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">
-                Aller à la connexion
+                <p className="mt-2 flex items-center justify-center text-xs text-green-600/80 dark:text-green-400/80">
+                <Link
+                  href="/"
+                  className="text-cyan-500 hover:text-cyan-600 transition-colors dark:hover:text-cyan-400 font-medium flex items-center"
+                >
+                  Se connecter
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              </p>
+                </p>
               </div>
             </div>
             ) : (
@@ -235,7 +239,7 @@ export default function RegisterPage() {
                     }
                     value={form[steps[step].name as keyof typeof form]}
                     onChange={handleChange}
-                    className="h-10 border-neutral-200 bg-white text-sm text-white shadow-sm transition-colors focus:border-cyan-500 dark:border-neutral-800 dark:bg-neutral-950 pr-10"
+                    className="h-10 border-neutral-200 bg-white text-sm text-black shadow-sm transition-colors focus:border-cyan-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white pr-10"
                     placeholder={steps[step].placeholder}
                     autoFocus
                   />

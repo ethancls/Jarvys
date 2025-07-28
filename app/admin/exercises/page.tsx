@@ -28,6 +28,8 @@ export default function AdminExercisesPage() {
   const [formOutput, setFormOutput] = useState("");
   const [formTestCases, setFormTestCases] = useState<any[]>([]);
 
+  const [search, setSearch] = useState("");
+
   function openForm(ex?: Exercise) {
     if (ex) {
       setFormId(ex.id);
@@ -130,54 +132,68 @@ export default function AdminExercisesPage() {
   }
 
   return (
-    <div className="container mx-auto py-8 min-h-screen">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          {/* Suppression du lien retour au tableau de bord */}
-          <h1 className="text-3xl font-bold">
-            <span className="text-cyan-500">Gestion des exercices</span>
-          </h1>
-          <p className="text-sm font-medium text-neutral-500">
-            Créez, modifiez et supprimez les exercices proposés aux étudiants
-          </p>
-        </div>
-        <Button className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white" onClick={() => openForm()}>
+    <div className="container mx-auto px-2 sm:px-4 py-8 min-h-screen">
+      <div className="mb-6 flex flex-wrap gap-2 items-center">
+        <span className="px-4 py-2 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 font-semibold">
+          {exercises.length} exercice{exercises.length > 1 ? 's' : ''}
+        </span>
+        <div className="flex-1"></div>
+        <input
+          type="text"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Rechercher..."
+          className="h-9 w-48 border-cyan-300 focus:border-cyan-500 focus:ring-cyan-500 text-sm rounded-md px-3 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200"
+        />
+        <Button className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-700 text-white font-semibold" onClick={() => openForm()}>
           <Plus className="h-4 w-4" />
-          Ajouter un exercice
+          Ajouter
         </Button>
       </div>
       {error && (
-        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-900/30 dark:bg-red-900/10 dark:text-red-400">
-          <p className="font-medium">{error}</p>
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/20 p-4 text-red-700 dark:text-red-300 flex items-center gap-2 shadow">
+          <span className="font-medium">{error}</span>
         </div>
       )}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {exercises.length === 0 ? (
           <div className="col-span-full rounded-lg border border-cyan-200 bg-white dark:bg-black p-8 text-center shadow-sm">
             <h3 className="text-lg font-medium text-cyan-600 dark:text-cyan-400">Aucun exercice</h3>
             <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Ajoutez un exercice pour commencer.</p>
           </div>
         ) : (
-          exercises.map((exercise) => (
-            <div key={exercise.id} className="rounded-lg border-2 border-cyan-200 bg-white dark:bg-black p-6 shadow-md flex flex-col justify-between">
+          exercises.filter(ex => {
+            if (!search.trim()) return true;
+            const q = search.trim().toLowerCase();
+            return (
+              ex.title.toLowerCase().includes(q) ||
+              (ex.description && ex.description.toLowerCase().includes(q))
+            );
+          }).map((exercise) => (
+            <div key={exercise.id} className="group rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-lg transition-all cursor-pointer hover:bg-cyan-50 dark:hover:bg-cyan-900/30 hover:shadow-md min-h-[260px] max-h-[340px] flex flex-col justify-between" style={{ maxWidth: '400px', margin: '0 auto', height: '280px' }}>
               <div>
-                <h3 className="mb-2 text-lg font-bold text-cyan-600 dark:text-cyan-400">{exercise.title}</h3>
-                <p className="mb-4 text-sm text-neutral-500 dark:text-neutral-400 line-clamp-3">{exercise.description}</p>
+                <h3 className="mb-2 text-base font-bold text-cyan-600 dark:text-cyan-300 truncate">{exercise.title}</h3>
+                <p className="mb-2 text-sm text-neutral-700 dark:text-neutral-300 min-h-[60px] max-h-[80px] overflow-hidden text-ellipsis whitespace-pre-line line-clamp-4 pr-2">{exercise.description}</p>
               </div>
-              <div className="flex gap-2 mt-4 justify-end">
-                <Link href="#" onClick={e => { e.preventDefault(); openForm(exercise); }}>
-                  <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900 font-medium">
-                    <Edit className="h-4 w-4" />
+              <div className="flex flex-col gap-1 mt-2">
+                <div className="flex justify-end gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-none bg-cyan-500 text-white hover:bg-cyan-700 font-medium cursor-pointer flex items-center gap-1"
+                    onClick={() => openForm(exercise)}
+                  >
+                    <Edit className="h-4 w-4 mr-1" /> Modifier
                   </Button>
-                </Link>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-red-200 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 font-medium"
-                  onClick={() => handleDelete(exercise.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-none bg-red-500 text-white hover:bg-red-700 font-medium cursor-pointer flex items-center gap-1"
+                    onClick={() => handleDelete(exercise.id)}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" /> Supprimer
+                  </Button>
+                </div>
               </div>
             </div>
           ))
@@ -189,7 +205,7 @@ export default function AdminExercisesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <form
             onSubmit={handleFormSubmit}
-            className="w-full max-w-lg rounded-lg border-2 border-cyan-200 bg-white dark:bg-black p-8 shadow-xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto"
+            className="w-full max-w-2xl rounded-lg border-2 border-none bg-white dark:bg-black p-8 shadow-xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto"
           >
             <h2 className="text-xl font-bold text-cyan-600 dark:text-cyan-400 mb-2">{formId ? 'Modifier' : 'Nouvel'} exercice</h2>
             {formError && (
@@ -208,7 +224,7 @@ export default function AdminExercisesPage() {
               value={formDescription}
               onChange={e => setFormDescription(e.target.value)}
               required
-              className="mb-2 rounded-md border-2 border-cyan-200 bg-transparent p-2 text-base text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 min-h-[120px] resize-y"
+              className="mb-2 rounded-md border-1 border-neutral-100 bg-transparent p-2 text-base text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 min-h-[120px] resize-y"
               placeholder="Description de l'exercice"
               rows={6}
               style={{ minHeight: 120 }}

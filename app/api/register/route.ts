@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
 
 
@@ -35,9 +36,8 @@ export async function POST(req: Request) {
       console.log('[REGISTER] Numéro déjà inscrit:', studentNumber);
       return NextResponse.json({ error: 'Ce numéro est déjà inscrit.' }, { status: 409 });
     }
-
-    // Hash du mot de passe (exemple simple, à remplacer par bcrypt en prod)
-    const hashedPassword = password; // Remplacer par un vrai hash !
+    
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
     const student = await prisma.student.create({
       data: {
