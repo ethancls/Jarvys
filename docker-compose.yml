@@ -1,0 +1,73 @@
+services:
+  frontend:
+    image: node:20-alpine
+    container_name: jarvys_frontend
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3003:3001"
+    command: >
+      sh -c "npm install && npm run dev"
+    depends_on:
+      - api
+      - db
+    restart: unless-stopped
+      
+  api:
+    container_name: jarvys_python_api
+    build:
+      context: ./api
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+      - api-venv:/app/.venv
+    command: uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    container_name: jarvys_db
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: jarvys_admin
+      POSTGRES_PASSWORD: i7reK1U&?tY5L@c?
+      POSTGRES_DB: jarvys_db
+
+  prisma-studio:
+    image: node:20-alpine
+    container_name: jarvys_prisma_studio
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "5556:5555"
+    environment:
+      - DATABASE_URL=postgresql://jarvys_admin:i7reK1U%26%3FtY5L%40c%3F@db:5432/jarvys_db
+    command: >
+      sh -c "npm install -g prisma && 
+             cd /app && 
+             npx prisma generate && 
+             npx prisma migrate dev --name init &&
+             npx prisma studio"
+    depends_on:
+      - db
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: jarvys_cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+    
+volumes:
+  api-venv:
+  postgres_data:
