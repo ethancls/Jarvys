@@ -12,7 +12,7 @@ services:
       sh -c "npm install && npm run dev"
     depends_on:
       - api
-      - db
+      - postgres
     restart: unless-stopped
       
   api:
@@ -24,15 +24,15 @@ services:
       - "8000:8000"
     volumes:
       - ./api:/app
-      - api-venv:/app/.venv
+      - api_venv:/app/.venv
     command: uvicorn api:app --host 0.0.0.0 --port 8000 --reload
     environment:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
 
-  db:
+  postgres:
     image: postgres:15-alpine
-    container_name: jarvys_db
+    container_name: jarvys_postgres
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -52,7 +52,7 @@ services:
     ports:
       - "5556:5555"
     environment:
-      - DATABASE_URL=postgresql://jarvys_admin:i7reK1U%26%3FtY5L%40c%3F@db:5432/jarvys_db
+      - DATABASE_URL=postgresql://jarvys_admin:i7reK1U%26%3FtY5L%40c%3F@postgres:5432/jarvys_db
     command: >
       sh -c "npm install -g prisma && 
              cd /app && 
@@ -60,7 +60,7 @@ services:
              npx prisma migrate dev --name init &&
              npx prisma studio"
     depends_on:
-      - db
+      - postgres
 
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -69,5 +69,5 @@ services:
     command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     
 volumes:
-  api-venv:
+  api_venv:
   postgres_data:
